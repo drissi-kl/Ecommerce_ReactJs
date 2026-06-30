@@ -1,0 +1,61 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: rgb(4, 128, 86);
+    color: white;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+}
+
+.navbar .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+.navbar .logo .logoImage{
+    height: 45px;
+}
+
+.navbar .menu{
+    display: flex;
+}
+.navbar .menu > div{
+    padding: 15px 20px;
+    transition: 0.3s;
+}
+.navbar .menu > div:hover{
+    background-color: white;
+    color: rgb(4, 128, 86);
+    transition: 0.3s;
+}
+
+.navbar .zoneSearch{
+    position: relative;
+    display: flex;
+    align-items: center;
+    
+}
+.navbar .zoneSearch .zoneSearchInput{
+    padding: 5px 30px 5px 10px ;
+    border-radius: 5px;
+    width: 350px;
+    height: 25px;
+    border:none
+}
+
+.navbar .zoneSearch .closeSearch{
+    color:rgb(4, 128, 86);
+    position: absolute;
+    right: 10px;
+
+}
+
+.navbar .searchCart{
+    display: flex;
+    padding: 0px 10px;
+    gap: 10px
+}
