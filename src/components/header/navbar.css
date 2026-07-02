@@ -1,61 +1,186 @@
-.navbar{
-    display: flex;
-    justify-content: space-between;
-    height: 60px;
-    background-color: rgb(4, 128, 86);
-    color: white;
-    align-items: center;
-    position: fixed;
+/* Core Variables for easy theme changing */
+:root {
+    --primary-color: #111111;
+    --text-color: #333333;
+    --text-muted: #767676;
+    --bg-color: #ffffff;
+    --border-color: #e5e5e5;
+    --accent-color: #ff3f6c; /* E-commerce accent pink/red */
+    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --transition-speed: 0.2s ease;
+}
+
+/* Reset baseline styling for navbar items */
+.navbar * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-stack);
+}
+
+.navbar {
     width: 100%;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    height: 70px;
 }
 
-.navbar .logo{
+.nav-container {
+    max-width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 0px 10px;
+    justify-content: space-between;
+    gap: 32px;
 }
 
-.navbar .logo .logoImage{
-    height: 45px;
-}
-
-.navbar .menu{
+/* Logo styling */
+.logo {
     display: flex;
-}
-.navbar .menu > div{
-    padding: 15px 20px;
-    transition: 0.3s;
-}
-.navbar .menu > div:hover{
-    background-color: white;
-    color: rgb(4, 128, 86);
-    transition: 0.3s;
+    align-items: center;
+    flex-shrink: 0;
 }
 
-.navbar .zoneSearch{
+.logoImage {
+    height: 36px;
+    object-fit: contain;
+}
+
+/* Menu Links Styling */
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 100%;
+}
+
+.menu-item {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color var(--transition-speed);
     position: relative;
+    padding: 8px 0;
+}
+
+.menu-item:hover {
+    color: var(--accent-color);
+}
+
+/* Categories highlighted layout */
+.menu-item.categories {
+    font-weight: 700;
+}
+
+/* Search Zone Expanding Layout */
+.zoneSearch {
+    flex: 1;
+    max-width: 500px;
     display: flex;
     align-items: center;
-    
-}
-.navbar .zoneSearch .zoneSearchInput{
-    padding: 5px 30px 5px 10px ;
-    border-radius: 5px;
-    width: 350px;
-    height: 25px;
-    border:none
+    position: relative;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
-.navbar .zoneSearch .closeSearch{
-    color:rgb(4, 128, 86);
+.zoneSearchInput {
+    width: 100%;
+    padding: 10px 40px 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+.zoneSearchInput:focus {
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+}
+
+.closeSearch {
     position: absolute;
-    right: 10px;
-
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-speed);
 }
 
-.navbar .searchCart{
+.closeSearch:hover {
+    color: var(--primary-color);
+}
+
+/* Right Side Utilities Buttons */
+.searchCart {
     display: flex;
-    padding: 0px 10px;
-    gap: 10px
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 8px;
+    transition: background var(--transition-speed), color var(--transition-speed);
+}
+
+.icon-btn:hover {
+    color: var(--accent-color);
+    background-color: #f9f9f9;
+}
+
+.icon-label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Cart Specific Styles (With Badge counter) */
+.cart-btn {
+    position: relative;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    min-width: 16px;
+    text-align: center;
+}
+
+/* Quick clean animation when opening search bar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile responsive tweak */
+@media (max-width: 768px) {
+    .menu, .icon-label {
+        display: none;
+    }
 }
