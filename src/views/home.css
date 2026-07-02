@@ -1,4 +1,361 @@
-.home{
-    height: 1600px;
-    background: rgb(207, 207, 207);
+/* Inheriting the root variables from your navbar layout */
+.home {
+    width: 100%;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+.hero {
+    min-height: calc(100vh - 70px); /* Perfectly fills the viewport beneath a 70px navbar */
+    display: flex;
+    align-items: center;
+    padding: 60px 0;
+    background: radial-gradient(circle at 85% 15%, #fdf0f0 0%, #ffffff 60%);
+}
+
+.hero-container {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* Gives typography slightly more breathing room */
+    gap: 48px;
+    align-items: center;
+}
+
+/* --- Left Typography Column --- */
+.left_side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.tagline {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ff3f6c; /* Match navbar accent */
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.left_side_top {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #111111;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.left_side_bottom {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 36px;
+    max-width: 520px;
+}
+
+/* Action Buttons styling */
+.hero-actions {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    padding: 14px 28px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #111111;
+    color: #ffffff;
+    border: 1px solid #111111;
+}
+
+.btn-primary:hover {
+    background-color: #ff3f6c;
+    border-color: #ff3f6c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 63, 108, 0.2);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #111111;
+    border: 1px solid #e5e5e5;
+}
+
+.btn-secondary:hover {
+    background-color: #f9f9f9;
+    border-color: #111111;
+    transform: translateY(-2px);
+}
+
+/* --- Right Visual Column --- */
+.right_side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    height: 520px;
+    z-index: 2;
+}
+
+.hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f3f3f5; /* Subtle background color while your actual images load */
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Feel free to replace the placeholder color layout above with an image when ready */
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.hero-image-wrapper:hover .hero-img {
+    transform: scale(1.03);
+}
+
+.badge-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #ffffff;
+    color: #111111;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Abstract back blob graphic for dimension */
+.decorative-blob {
+    position: absolute;
+    width: 110%;
+    height: 100%;
+    background-color: #fdf0f0;
+    border-radius: 40% 60% 60% 40% / 50% 30% 70% 50%;
+    top: 5%;
+    left: 5%;
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.7;
+}
+
+/* --- Responsive Layout Breakpoint --- */
+@media (max-width: 992px) {
+    .hero {
+        padding: 40px 0;
+    }
+    .hero-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 40px;
+    }
+    .left_side {
+        align-items: center;
+    }
+    .left_side_top {
+        font-size: 36px;
+    }
+    .hero-image-wrapper {
+        height: 400px;
+    }
+}
+
+
+
+/* --- Categories Section Layout --- */
+.categories-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+}
+
+.categories-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Header Area styling */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.sub-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #ff3f6c;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.section-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #111111;
+    letter-spacing: -0.5px;
+}
+
+.view-all-link {
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111111;
+    cursor: pointer;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.view-all-link:hover {
+    color: #ff3f6c;
+    border-color: #ff3f6c;
+}
+
+/* The Grid (Auto-responsive layout framework) */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* Individual Card Styling */
+.category-card {
+    height: 380px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #f5f5f7; /* Placeholder color before background image is set */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base image styling if you use background images instead of raw CSS colors */
+/* Example properties to assign per card class later:
+.cat-card-1 { background-image: url('path-to-image.jpg'); background-size: cover; background-position: center; } 
+*/
+.cat-card-1 { background-color: #ebebee; }
+.cat-card-2 { background-color: #e2e8f0; }
+.cat-card-3 { background-color: #fae8ff; }
+.cat-card-4 { background-color: #fef3c7; }
+
+/* Subtle dark gradient overlay across the card for font legibility */
+.category-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.category-info {
+    color: #ffffff;
+}
+
+.category-count {
+    font-size: 11px;
+    font-weight: 500;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.category-name {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* Circular Arrow button tracking decoration */
+.category-btn {
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #111111;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Hover Effects --- */
+.category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.category-card:hover .category-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.category-card:hover .category-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2x2 layout on mid tablets */
+    }
+}
+
+@media (max-width: 576px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .categories-grid {
+        grid-template-columns: 1fr; /* Stacked layout on small mobile screens */
+        gap: 16px;
+    }
+    .category-card {
+        height: 280px;
+    }
+    .category-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

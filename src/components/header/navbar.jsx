@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import "./navbar.css";
+import { Search, ShoppingBag } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
     const [showSearchZone, setShowSearchZone] = useState(false);
+    const location = useLocation();
+
+    console.log('location', location.pathname)
+
 
     return (
         <nav className='navbar'>
@@ -27,10 +33,10 @@ export default function Navbar() {
                     </div>
                 ) : (
                     <div className="menu">
-                        <div className="menu-item categories">Categories</div>
-                        <div className="menu-item">Home</div>
-                        <div className="menu-item">About Us</div>
-                        <div className="menu-item">Contact Us</div>
+                        <Link to="/" className={`menu-item ${location.pathname == '/' ? "active" : ""}`}>Home</Link>
+                        <Link to="/products" className={`menu-item ${location.pathname == '/products' ? "active" : ""}`}>Products</Link>
+                        <Link to="/aboutUs" className={`menu-item ${location.pathname == '/aboutUs' ? "active" : ""}`}>About Us</Link>
+                        <Link to="/contactUs" className={`menu-item ${location.pathname == '/contactUs' ? "active" : ""}`}>Contact Us</Link>
                     </div>
                 )}
              
@@ -39,13 +45,13 @@ export default function Navbar() {
                     {!showSearchZone && (
                         <button className="icon-btn" onClick={() => setShowSearchZone(true)} aria-label="Search">
                             {/* Simple inline SVG for Search Icon */}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <Search />
                             <span className="icon-label">Search</span>
                         </button>
                     )}
                     <button className="icon-btn cart-btn" aria-label="Cart">
                         {/* Simple inline SVG for Cart Icon */}
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        <ShoppingBag />
                         <span className="icon-label">Cart</span>
                         <span className="cart-badge">0</span>
                     </button>
