@@ -136,7 +136,15 @@
 }
 
 .hero-image-wrapper:hover .hero-img {
-    transform: scale(1.03);
+    transform: scale(1.05);
+}
+
+.hero_swiper{
+    height: 100%;
+}
+
+.hero_swiper_slide{
+    height: 100%;
 }
 
 .badge-overlay {
@@ -152,6 +160,7 @@
     letter-spacing: 1px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    z-index: 10;
 }
 
 /* Abstract back blob graphic for dimension */

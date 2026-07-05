@@ -1,5 +1,6 @@
 import React from 'react'
 import "./home.css";
+import Hero from '../components/home/hero';
 
 export default function Home() {
   // Array data to map over for clean, maintainable category blocks
@@ -13,30 +14,7 @@ export default function Home() {
   return (
     <main className='home'>
       {/* Hero Section */}
-      <section className='hero'>
-        <div className="hero-container">
-          <div className="left_side">
-            <div className="tagline">NEW SEASON INCOMING</div>
-            <h1 className="left_side_top">Elevate Your Everyday Style & Comfort.</h1>
-            <p className="left_side_bottom">
-              Discover curated collections crafted for your modern lifestyle. Get 20% off your first order with free worldwide shipping today.
-            </p>
-            <div className="hero-actions">
-              <button className="btn btn-primary">Shop Collection</button>
-              <button className="btn btn-secondary">Explore Lookbook</button>
-            </div>
-          </div>
-
-          <div className='right_side'>
-            <div className="hero-image-wrapper">
-              <div className="hero-image-placeholder">
-                <span className="badge-overlay">Trending Now</span>
-              </div>
-              <div className="decorative-blob"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* --- New Categories Section --- */}
       <section className="categories-section">
