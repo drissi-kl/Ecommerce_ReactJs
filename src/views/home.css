@@ -203,7 +203,7 @@
 /* --- Categories Section Layout --- */
 .categories-section {
     padding: 80px 0;
-    background-color: #ffffff;
+    background-color: #c0c0c0;
 }
 
 .categories-container {
@@ -254,31 +254,41 @@
     border-color: #ff3f6c;
 }
 
+
+
 /* The Grid (Auto-responsive layout framework) */
 .categories-grid {
-    background: red;
+    /* background: red; */
     height: 400px;
+    overflow: visible;
+
 }
 
 /* Individual Card Styling */
 .category-card {
     height: 380px;
     border-radius: 16px;
-    /* position: relative; */
-    /* overflow: hidden; */
+    position: relative;
+    overflow: hidden;
     cursor: pointer;
     background-color: #f5f5f7; /* Placeholder color before background image is set */
-    /* transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card .cat-card-image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 /* Base image styling if you use background images instead of raw CSS colors */
 /* Example properties to assign per card class later:
 .cat-card-1 { background-image: url('path-to-image.jpg'); background-size: cover; background-position: center; } 
 */
-.cat-card-1 { background-color: #ebebee; }
+/* .cat-card-1 { background-color: #ebebee; }
 .cat-card-2 { background-color: #e2e8f0; }
 .cat-card-3 { background-color: #fae8ff; }
-.cat-card-4 { background-color: #fef3c7; }
+.cat-card-4 { background-color: #fef3c7; } */
 
 /* Subtle dark gradient overlay across the card for font legibility */
 .category-overlay {

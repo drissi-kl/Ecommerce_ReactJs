@@ -6,21 +6,18 @@ import 'swiper/css/pagination';
 import { Pagination } from 'react-bootstrap';
 
 export default function CategorySwiper() {
+  const baseRoot = '/home/category';
 
-
-  const [categories, setCategories] = useState(null);
-  console.log('category compononet');
-
-  useEffect(()=>{
-    (async ()=>{
-      const response = await getCategories();
-      console.log('response', response);
-      if(response){
-        setCategories(response.slice(0,4));
-      }
-    })()
-
-  }, [])
+  const categories = [
+    {name: "Beauty", image: `${baseRoot}/beauty.jpg`, items:120},
+    {name: "Home Decoration", image: `${baseRoot}/homedecoration.jpg`, items:60},
+    {name: "Laptops", image: `${baseRoot}/laptops.jpg`, items:200},
+    {name: "Mens Watches", image: `${baseRoot}/watch.jpg`, items:110},
+    {name: "Smartphones", image: `${baseRoot}/smartphones.jpg`, items:120},
+    {name: "Sunglasses", image: `${baseRoot}/sunglasses.jpg`, items:90},
+    {name: "Sports Accessories", image: `${baseRoot}/sportsaccessories.jpg`, items:300},
+  ]
+  
     
 
   return (
@@ -45,12 +42,12 @@ export default function CategorySwiper() {
 
           >
             { categories && categories.map((category, index) => (
-              <SwiperSlide key={index} className = 'cat-card'>
-                <img src={`category.`} alt="" />
+              <SwiperSlide key={index} className = 'category-card'>
+                <img src={category.image} className='cat-card-image' alt="" />
                 {/* Fallback overlay inside the cards */}
                 <div className="category-overlay">
                   <div className="category-info">
-                    <span className="category-count">10</span>
+                    <span className="category-count">+{category.items} items</span>
                     <h3 className="category-name">{category.name}</h3>
                   </div>
                   <div className="category-btn">
