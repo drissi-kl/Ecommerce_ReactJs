@@ -377,3 +377,54 @@
         transform: translateY(0);
     }
 }
+
+
+
+
+
+/* Reviews Section */
+.review{
+    padding: 100px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.review .review-title{
+    padding-bottom: 10px;
+}
+
+.review .review-description{
+    padding-bottom: 30px;
+}
+
+.review .review-cards{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+}
+
+.review .review-card{
+    flex-basis: 25%;
+    background-color: rgb(193, 226, 255);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.review .review-card .review-card-name {
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+/* Reviews Section */
+
+
+
+
+
+
+
+
+
+
+
+
+
