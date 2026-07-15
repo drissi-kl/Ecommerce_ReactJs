@@ -256,20 +256,19 @@
 
 /* The Grid (Auto-responsive layout framework) */
 .categories-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
+    background: red;
+    height: 400px;
 }
 
 /* Individual Card Styling */
 .category-card {
     height: 380px;
     border-radius: 16px;
-    position: relative;
-    overflow: hidden;
+    /* position: relative; */
+    /* overflow: hidden; */
     cursor: pointer;
     background-color: #f5f5f7; /* Placeholder color before background image is set */
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); */
 }
 
 /* Base image styling if you use background images instead of raw CSS colors */
