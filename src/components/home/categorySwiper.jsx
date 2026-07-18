@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { getCategories } from '../../services/category';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'react-bootstrap';
+import 'swiper/css/navigation';
 
 export default function CategorySwiper() {
   const baseRoot = '/home/category';
@@ -29,17 +31,19 @@ export default function CategorySwiper() {
               <span className="sub-title">Shop by Vibe</span>
               <h2 className="section-title">Popular Categories</h2>
             </div>
-            <button className="view-all-link">View All Categories →</button>
+            {/* <button className="view-all-link">View All Categories →</button> */}
           </div>
 
           <Swiper className="categories-grid"   
-            modules={[Pagination, ]}
+            modules={[Pagination, Navigation]}
             pagination = {{
-              clickable: true
+              clickable: true,
+              dynamicBullets: true,
             }}
+            navigation
             slidesPerView={4}
             spaceBetween={20}
-
+            loop={true}
           >
             { categories && categories.map((category, index) => (
               <SwiperSlide key={index} className = 'category-card'>
