@@ -1,0 +1,220 @@
+/* --- Footer Container Setup --- */
+.store-footer {
+    background-color: #111111; /* Dark premium luxury tone */
+    color: #ffffff;
+    padding: 80px 0 40px 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* --- Top Section Layout --- */
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 48px;
+    padding-bottom: 40px;
+}
+
+.footer-brand-zone {
+    max-width: 360px;
+}
+
+.footer-logo {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0 0 16px 0;
+}
+
+.footer-logo span {
+    color: #ff3f6c; /* Your premium branding accent color */
+}
+
+.footer-tagline {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #999999;
+    margin: 0;
+}
+
+/* --- Newsletter Styling --- */
+.footer-newsletter {
+    max-width: 420px;
+    width: 100%;
+}
+
+.newsletter-text {
+    font-size: 13.5px;
+    color: #999999;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+}
+
+.newsletter-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.newsletter-input {
+    flex-grow: 1;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.newsletter-input:focus {
+    border-color: #ff3f6c; /* Glow effect on selection */
+}
+
+.newsletter-btn {
+    background-color: #ff3f6c;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.newsletter-btn:hover {
+    opacity: 0.9;
+}
+
+/* --- Dividers --- */
+.footer-divider {
+    border: 0;
+    height: 1px;
+    background-color: #222222;
+    margin: 0;
+}
+
+/* --- Main Links Grid --- */
+.footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    padding: 48px 0;
+}
+
+.footer-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    letter-spacing: 0.5px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a {
+    color: #999999;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: #ff3f6c; /* Hover accent color transition */
+}
+
+/* --- Contact Info Custom Styles --- */
+.footer-links.contact-info li {
+    font-size: 14px;
+    color: #999999;
+    line-height: 1.4;
+}
+
+.footer-links.contact-info span {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* --- Footer Bottom Alignment --- */
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+}
+
+.footer-copyright {
+    font-size: 13px;
+    color: #666666;
+    margin: 0;
+}
+
+.footer-payments {
+    display: flex;
+    gap: 12px;
+}
+
+.payment-icon {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #666666;
+    background-color: #1a1a1a;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #222222;
+}
+
+/* --- Modern Responsive Media Queries --- */
+@media (max-width: 992px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 32px;
+    }
+    
+    .footer-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+}
+
+@media (max-width: 576px) {
+    .store-footer {
+        padding: 60px 0 30px 0;
+    }
+
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-btn {
+        padding: 12px 0;
+    }
+
+    .footer-links-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
