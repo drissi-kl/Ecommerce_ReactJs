@@ -383,37 +383,120 @@
 
 
 /* Reviews Section */
-.review{
-    padding: 100px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.review {
+    padding: 80px 24px;
+    background-color: #fafafa; /* Soft neutral backdrop */
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
-.review .review-title{
-    padding-bottom: 10px;
+.review-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #111111;
+    text-align: center;
+    text-transform: capitalize;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
 }
 
-.review .review-description{
-    padding-bottom: 30px;
+.review-description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #666666;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 48px auto;
 }
 
-.review .review-cards{
+/* --- Layout Grid --- */
+.review-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+/* --- Premium Review Card Box --- */
+.review-card {
+    background-color: #ffffff;
+    border: 1px solid #eef0f2;
+    border-radius: 16px;
+    padding: 28px;
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.review .review-card{
-    flex-basis: 25%;
-    background-color: rgb(193, 226, 255);
-    padding: 10px;
-    border-radius: 5px;
+.review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.05);
+    border-color: transparent;
 }
 
-.review .review-card .review-card-name {
-    font-weight: bold;
-    padding-bottom: 10px;
+/* --- Card Content Custom Ordering & Layout --- */
+.review-card-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111111;
+    margin: 0 0 4px 0;
 }
+
+.review-card-comment {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444444;
+    font-style: italic;
+    margin: 0 0 20px 0;
+}
+
+/* --- Pure CSS Star Rating Conversion --- */
+.review-card-rating {
+    font-size: 10px; /* Hides your raw data numbers (5, 3, 4) cleanly */
+    margin: 0 0 16px 0;
+    display: flex;
+    gap: 2px;
+}
+
+/* Inject stars based on standard numeric states using attributes */
+.review-card-rating::before {
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: #ffb800; /* Warm gold stars */
+}
+
+/* Match the exact raw string inside your p tags */
+.review-card-rating[class*="review-card-rating"]:has(:contains("5")),
+
+
+/* CSS Fallback selection to inject stars reliably without altering data strings */
+.review-card .review-card-rating .star-icon {
+    width: 18px;
+    height: 18px;
+    color: #ffb800 !important; /* Premium gold outline */
+    fill: #ffb800 !important;  /* Pure solid gold fill */
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .review-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .review {
+        padding: 48px 16px;
+    }
+    .review-title {
+        font-size: 26px;
+    }
+    .review-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
 /* Reviews Section */
 
 
