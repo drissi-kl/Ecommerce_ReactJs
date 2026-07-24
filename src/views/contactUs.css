@@ -1,0 +1,204 @@
+/* --- Global Container --- */
+.contact_us {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 48px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #111111;
+}
+
+/* ==========================================================================
+   1. INFORMATION SIDEBAR
+   ========================================================================== */
+.information {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+}
+
+.descriptions {
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.6;
+  margin: 0 0 36px 0;
+}
+
+.contact_details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.info_card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #f9fafb;
+  border: 1px solid #f0f0f2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.info_card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.icon_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.address_icon,
+.phone_icon,
+.email_icon {
+  width: 20px;
+  height: 20px;
+  color: #ff3f6c; /* Matches primary brand color from products page */
+}
+
+.info_card h2 {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #111111;
+}
+
+.info_card p {
+  font-size: 14px;
+  color: #555555;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   2. CONTACT FORM
+   ========================================================================== */
+.contact_form_wrapper {
+  background: #ffffff;
+  border: 1px solid #f0f0f2;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.form_title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 28px 0;
+}
+
+.contact_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input_group label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.input_group input,
+.input_group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111111;
+  background-color: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.input_group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input_group input:focus,
+.input_group textarea:focus {
+  border-color: #ff3f6c;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 63, 108, 0.1);
+}
+
+.send_btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.send_btn:hover {
+  background-color: #ff3f6c;
+  box-shadow: 0 6px 16px rgba(255, 63, 108, 0.25);
+  transform: translateY(-1px);
+}
+
+.send_btn:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   3. RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 900px) {
+  .contact_us {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 32px 16px;
+  }
+}
+
+@media (max-width: 550px) {
+  .form_row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact_form_wrapper {
+    padding: 24px;
+  }
+}
