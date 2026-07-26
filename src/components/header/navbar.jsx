@@ -1,13 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./navbar.css";
 import { Search, ShoppingBag } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { getProductsApi, searchProductApi } from '../../services/products';
 
 export default function Navbar() {
     const [showSearchZone, setShowSearchZone] = useState(false);
     const location = useLocation();
 
-    console.log('location', location.pathname)
+    const [products, setProducts] = useState(null);
+    const [search, setSearch] = useState(null);
+    
+
+    useEffect(()=>{
+        let timer;
+        if(search != null && search != ""){
+            timer = setTimeout(()=>{
+                console.log('inside setTimeout', search)
+                const fetchProducts = async (d) => {
+                    try{
+                        const response = await searchProductApi(d);
+                        setProducts(response.products);
+                    } catch(error) {
+                        console.log('fetchProducts', error );
+                    }
+                }
+                fetchProducts(search);
+
+            }, 3000);
+        }else{
+            setProducts(null)
+        }
+        
+        return ()=>{clearTimeout(timer)}
+    },[search] )
+    
+
+    console.log('product', products)
+
+
+
+    
+
 
 
     return (
@@ -26,10 +60,19 @@ export default function Navbar() {
                             placeholder="Search products, brands, categories..." 
                             className="zoneSearchInput" 
                             autoFocus
+                            onChange={(event)=>{setSearch(event.target.value)}}
                         />
                         <button onClick={() => setShowSearchZone(false)} className='closeSearch' aria-label="Close search">
                             ✕
                         </button>
+
+                        {
+                            products && products.length > 0 ?  <div className='products_searched'>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, perspiciatis.
+                            </div>
+                            :null
+                        }
+                        
                     </div>
                 ) : (
                     <div className="menu">
