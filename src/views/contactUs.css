@@ -71,7 +71,7 @@
 .email_icon {
   width: 20px;
   height: 20px;
-  color: #ff3f6c; /* Matches primary brand color from products page */
+  color: #ff3f6c; /* Primary brand accent */
 }
 
 .info_card h2 {
@@ -91,7 +91,7 @@
 }
 
 /* ==========================================================================
-   2. CONTACT FORM
+   2. CONTACT FORM & VALIDATION STYLES
    ========================================================================== */
 .contact_form_wrapper {
   background: #ffffff;
@@ -122,7 +122,8 @@
 .input_group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  position: relative;
 }
 
 .input_group label {
@@ -158,6 +159,42 @@
   box-shadow: 0 0 0 3px rgba(255, 63, 108, 0.1);
 }
 
+/* --- React Hook Form Error Messages --- */
+.fullnameErrorMessage,
+.emailErrorMessage,
+.subjectErrorMessage,
+.messageErrorMessage {
+  font-size: 12px;
+  font-weight: 500;
+  color: #e63946;
+  margin: 2px 0 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Optional styling when an input has an error */
+.input_group:has(.fullnameErrorMessage) input,
+.input_group:has(.emailErrorMessage) input,
+.input_group:has(.subjectErrorMessage) input,
+.input_group:has(.messageErrorMessage) textarea {
+  border-color: #e63946;
+  background-color: #fffafb;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Submit Button */
 .send_btn {
   width: 100%;
   padding: 14px;

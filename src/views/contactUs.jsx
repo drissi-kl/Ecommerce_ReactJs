@@ -1,11 +1,23 @@
 import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import "./contactUs.css";
+import { useForm } from 'react-hook-form';
 
 export default function ContactUs() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+
+  const {
+    register, handleSubmit, reset, formState,
+  
+  } = useForm();
+  const {errors, } = formState
+
+  const contactUsForm = (data) => {
+    console.log('data', data);
+    reset();
+  }
+
+
+
 
   return (
     <main className="contact_us">
@@ -56,26 +68,54 @@ export default function ContactUs() {
       <section className="contact_form_wrapper">
         <h2 className="form_title">Send a Message</h2>
 
-        <form className="contact_form" onSubmit={handleSubmit}>
+        <form className="contact_form" onSubmit={handleSubmit(contactUsForm)} >
           <div className="form_row">
             <div className="input_group">
               <label htmlFor="fullName">Full Name</label>
-              <input type="text" id="fullName" placeholder="John Doe" required />
+              <input type="text" id="fullName" placeholder="John Doe" 
+                {...register('fullname', {
+                  required: {value: true, message: 'your full name is required'}
+                })}
+              />
+              { 
+                errors.fullname && <p className="fullnameErrorMessage">{errors.fullname.message}</p>
+              }
             </div>
             <div className="input_group">
               <label htmlFor="email">Email Address</label>
-              <input type="email" id="email" placeholder="john@example.com" required />
+              <input type="email" id="email" placeholder="john@example.com" 
+                {...register('email', {
+                  required: {value: true, message: 'your email name is required'}
+                })}
+              />
+              { 
+                errors.email && <p className="emailErrorMessage">{errors.email.message}</p>
+              }
             </div>
           </div>
 
           <div className="input_group">
             <label htmlFor="subject">Subject</label>
-            <input type="text" id="subject" placeholder="How can we help?" required />
+            <input type="text" id="subject" placeholder="How can we help?" 
+              {...register('subject', {
+                required: {value: true, message: 'the subject is required'}
+              })}
+            />
+            { 
+              errors.subject && <p className="subjectErrorMessage">{errors.subject.message}</p>
+            }
           </div>
 
           <div className="input_group">
             <label htmlFor="message">Message</label>
-            <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+            <textarea id="message" rows="5" placeholder="Write your message here..."
+              {...register('message', {
+                required: {value: true, message: 'your message is required'}
+              })}
+            ></textarea>
+            { 
+              errors.message && <p className="messageErrorMessage">{errors.message.message}</p>
+            }
           </div>
 
           <button type="submit" className="send_btn">Send Message</button>
