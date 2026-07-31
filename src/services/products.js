@@ -16,11 +16,25 @@ const getProductsApi = async(limit=20, skip=0)=>{
 }
 
 
+const getProductApi = async(id)=>{
+    try{
+        const response = await baseApi.get(`/products/${id}`);
+        return response.data;
+    }catch(error){
+        if(axios.isAxiosError(error)){
+            throw error;
+        }else{
+            throw new Error('exists error in getProductApi function')
+        }
+    }
+}
+
+
 const searchProductApi = async(productData)=>{
     try{
         const response = await baseApi.get(`/products/search?q=${productData}`);
         // console.log('response', response.data);
-        return response.data;
+        // return response.data;
     }catch(error){
         if(axios.isAxiosError(error)){
             throw error;
@@ -30,7 +44,7 @@ const searchProductApi = async(productData)=>{
     }
 }
 
-export {getProductsApi, searchProductApi}
+export {getProductsApi, getProductApi, searchProductApi}
 
 
 
