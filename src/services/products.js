@@ -2,9 +2,9 @@ import axios from "axios";
 import baseApi from "./baseApi";
 
 
-const getProductsApi = async(limit, skip)=>{
+const getProductsApi = async(limit, skip, categorySelected)=>{
     try{
-        const response = await baseApi.get(`/products?limit=${limit}&skip=${skip}`);
+        const response = await baseApi.get(`/products${categorySelected ? `/category/${categorySelected}` : ''}?limit=${limit}&skip=${skip}`);
         return response.data;
     }catch(error){
         if(axios.isAxiosError(error)){

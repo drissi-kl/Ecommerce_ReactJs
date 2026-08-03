@@ -1,31 +1,41 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getProductsApi } from '../services/products';
-
+import { getCategories } from '../services/category';
 import "./products.css";
 
 export default function Products() {
-  const { category } = useParams();
-  const navigate = useNavigate();
+  const goToHead = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
+  const { category } = useParams();
   const [page, setPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(null);
   const [products, setProducts] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [categorySelected, setCategorySelected] = useState("");
   const [pagination, setPagination] = useState([]);
+  const [showAllCategories, setShowAllCategories] = useState(false);
+
+  useEffect(() => {
+    if (category) setCategorySelected(category);
+  }, [category]);
 
   useEffect(() => {
     let limit = 21;
     let skip = 21 * page - 21;
 
-    const fetchCategory = async (limit, skip) => {
-      const response = await getProductsApi(limit, skip);
+    const fetchProducts = async () => {
+      const response = await getProductsApi(limit, skip, categorySelected);
       if (response) {
         setProducts(response);
         setTotalProducts(response.total);
       }
     };
-    fetchCategory(limit, skip);
-  }, [page]);
+    fetchProducts();
+    goToHead();
+  }, [page, categorySelected]);
 
   useEffect(() => {
     if (!totalProducts) return;
@@ -36,55 +46,73 @@ export default function Products() {
     setPagination(t);
   }, [totalProducts]);
 
+  useEffect(() => {
+    (async () => {
+      const response = await getCategories();
+      if (response) setCategories(response);
+    })();
+  }, []);
+
   return (
     <main className="products">
       {/* Sidebar Filters */}
       <aside className="filter">
         <div className="category_selection">
           <p>Category:</p>
-          <div>
-            <input type="checkbox" id="laptop" />
-            <label htmlFor="laptop">Laptops</label>
+          <div className={showAllCategories ? "category_list category_list_scroll" : "category_list"}>
+            {(showAllCategories ? categories : categories.slice(0, 6)).map((cat, index) => (
+              <div key={cat.id || cat.name || index} className="category_item">
+                <input
+                  type="checkbox"
+                  id={`cat-${index}`}
+                  checked={categorySelected === cat.name}
+                  onChange={() => {
+                    setPage(1);
+                    setCategorySelected((prev) => (prev === cat.name ? "" : cat.name));
+                  }}
+                />
+                <label htmlFor={`cat-${index}`}>{cat.name}</label>
+              </div>
+            ))}
           </div>
-          <div>
-            <input type="checkbox" id="phone" />
-            <label htmlFor="phone">Phones</label>
-          </div>
-        </div>
 
-        <div className="price_selection">
-          <p>Price:</p>
-          <div>
-            <input className="min_price" type="text" placeholder="min" />
-            <input className="max_price" type="text" placeholder="max" />
-          </div>
+          {categories.length > 6 && (
+            <button 
+              className="category_more_less_btn" 
+              onClick={() => setShowAllCategories((prev) => !prev)}
+            >
+              {showAllCategories ? "Less" : "More"}
+            </button>
+          )}
         </div>
-
-        <button className="apply_selection">Apply</button>
       </aside>
 
       {/* Main Content Area */}
       <section className="products_container">
-        {/* Grid of Product Cards */}
-        <div className="products_grid">
-          {products?.products?.map((product) => (
-            <div key={product.id} className="product">
-              <div className="image">
-                <img src={product.thumbnail} alt={product.title} />
-                <div>
-                  <p className="product_title">{product.title}</p>
-                  <p className="product_price">{product.price}</p>
-                  <button>Add To Cart</button>
+        {products?.products?.length > 0 ? (
+          <div className="products_grid">
+            {products.products.map((product) => (
+              <Link to={`${product.id}`} key={product.id} className="product">
+                <div className="image">
+                  <img src={product.thumbnail} alt={product.title} />
+                  <div>
+                    <p className="product_title">{product.title}</p>
+                    <p className="product_price">{product.price}</p>
+                    <button type="button">Add To Cart</button>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="not_product">No products found</div>
+        )}
 
         {/* Pagination Bar */}
-        {pagination.length > 1 && (
+        {pagination.length > 1 && totalProducts > 0 && (
           <div className="pagination_wrapper">
             <button
+              type="button"
               className="page_nav_btn"
               disabled={page === 1}
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
@@ -95,6 +123,7 @@ export default function Products() {
             <div className="page_numbers">
               {pagination.map((item) => (
                 <button
+                  type="button"
                   key={item}
                   className={`page_btn ${page === item ? 'active' : ''}`}
                   onClick={() => setPage(item)}
@@ -105,6 +134,7 @@ export default function Products() {
             </div>
 
             <button
+              type="button"
               className="page_nav_btn"
               disabled={page === pagination.length}
               onClick={() => setPage((prev) => Math.min(prev + 1, pagination.length))}
