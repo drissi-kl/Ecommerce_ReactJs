@@ -6,10 +6,13 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { useNavigate } from 'react-router-dom';
 
 export default function CategorySwiper() {
-  const baseRoot = '/home/category';
 
+  const navigate = useNavigate();
+
+  const baseRoot = '/home/category';
   const categories = [
     {name: "Beauty", image: `${baseRoot}/beauty.jpg`, items:120},
     {name: "Home Decoration", image: `${baseRoot}/homedecoration.jpg`, items:60},
@@ -54,7 +57,7 @@ export default function CategorySwiper() {
                     <span className="category-count">+{category.items} items</span>
                     <h3 className="category-name">{category.name}</h3>
                   </div>
-                  <div className="category-btn">
+                  <div className="category-btn" onClick={()=>{navigate(`products`, {state: {category: category.name}})}}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </div>
                 </div>

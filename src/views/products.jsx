@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getProductsApi } from '../services/products';
 import { getCategories } from '../services/category';
 import "./products.css";
@@ -9,7 +9,9 @@ export default function Products() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const { category } = useParams();
+  const location = useLocation();
+  const category = location.state?.category;
+  console.log('drisssssi: ', category)
   const [page, setPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(null);
   const [products, setProducts] = useState(null);
