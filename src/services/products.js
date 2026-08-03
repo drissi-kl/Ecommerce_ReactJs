@@ -2,7 +2,7 @@ import axios from "axios";
 import baseApi from "./baseApi";
 
 
-const getProductsApi = async(limit=20, skip=0)=>{
+const getProductsApi = async(limit, skip)=>{
     try{
         const response = await baseApi.get(`/products?limit=${limit}&skip=${skip}`);
         return response.data;
@@ -19,6 +19,7 @@ const getProductsApi = async(limit=20, skip=0)=>{
 const getProductApi = async(id)=>{
     try{
         const response = await baseApi.get(`/products/${id}`);
+        console.log(`product ${id}`, response.data);
         return response.data;
     }catch(error){
         if(axios.isAxiosError(error)){
@@ -34,7 +35,7 @@ const searchProductApi = async(productData)=>{
     try{
         const response = await baseApi.get(`/products/search?q=${productData}`);
         // console.log('response', response.data);
-        // return response.data;
+        return response.data;
     }catch(error){
         if(axios.isAxiosError(error)){
             throw error;

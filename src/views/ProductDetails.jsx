@@ -100,7 +100,7 @@ const RELATED_PRODUCTS = [
   }
 ];
 
-export default function ProductDetails({ product = MOCK_PRODUCT }) {
+export default function ProductDetails() {
     const [selectedImage, setSelectedImage] = useState(0);
     const [quantity, setQuantity] = useState(1);
     const [activeTab, setActiveTab] = useState('description');
@@ -112,30 +112,19 @@ export default function ProductDetails({ product = MOCK_PRODUCT }) {
     const [productIsLoading, setProductIsLoading] = useState(false);
 
     useEffect(()=>{
-        const fetchProduct = async () => {
-            try{
-                const response = await getProductApi(id);
-                setProduct(response)
-            }catch(error){
+      (async () => {
+          try{
+              const response = await getProductApi(id);
+              setProduct(response)
+          }catch(error){
 
-            }finally{
-                setProductIsLoading(false);
-            }
-        }
+          }finally{
+              setProductIsLoading(false);
+          }
+      })()
 
 
     }, [id])
-
-
-
-
-
-
-
-
-
-
-
 
 
 

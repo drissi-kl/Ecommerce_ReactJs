@@ -22,7 +22,6 @@ export default function Navbar() {
                         const response = await searchProductApi(query);
                         setProducts(response.products || []);
                     } catch (error) {
-                        console.error('fetchProducts error:', error);
                         setProducts([]);
                     } finally {
                         setIsLoading(false);
