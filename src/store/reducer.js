@@ -11,8 +11,13 @@ export const reducer = (state = {cartItems: []}, action) => {
         break;
 
         case 'updateQuantity': return {...state, cartItems: state.cartItems.map((item)=>{ return item.id == action.payload.productId ? {...item, quantity: action.payload.quantity} : item })}
+        break;
 
-    
+        case 'removeProduct': return {...state, cartItems: state.cartItems.filter((item)=>{return item.id != action.payload})}
+        break;
+
+        case 'clearProducts': return {...state, cartItems: []};
+        break;
 
         default: return state;
     }

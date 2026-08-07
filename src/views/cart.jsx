@@ -1,49 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './cart.css';
+import { useDispatch } from 'react-redux';
+import searchInCart from '../utilities/searchInCart';
 
-// Sample initial data structure (replace with your Context/Redux state)
-const initialCartItems = [
-  {
-    id: 1,
-    title: "Essence Mascara Lash Princess",
-    price: 9.99,
-    quantity: 2,
-    thumbnail: "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
-  },
-  {
-    id: 2,
-    title: "Eyeshadow Palette with Mirror",
-    price: 19.99,
-    quantity: 1,
-    thumbnail: "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
-  }
-];
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+  const dispatch = useDispatch();
+
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(()=>{
+    // get products form local storage, ci mean cart items
+    const ci = localStorage.getItem('cartItems');
+    setCartItems((prev) => ci ? JSON.parse(ci) : [])
+
+  }, []);
+
+  console.log("cart component", cartItems)
 
   // --- Handlers ---
   const handleQuantityChange = (id, delta) => {
-    setCartItems((prevItems) =>
-      prevItems
-        .map((item) => {
-          if (item.id === id) {
-            const newQuantity = item.quantity + delta;
-            return newQuantity > 0 ? { ...item, quantity: newQuantity } : null;
-          }
-          return item;
-        })
-        .filter(Boolean)
-    );
+    const product = searchInCart(id);
+    console.log("current product", product)
+    const newQuantity = Math.max(1, Math.min(product.quantity + delta, product.stock || 99));
+    const newItems = cartItems.map((item) => {return item.id == id? {...item, quantity: newQuantity} : item  })
+
+    setCartItems(newItems);
+    // for synchronization updating that happened in cart with localstorage
+    localStorage.setItem("cartItems" ,JSON.stringify(newItems));
+    // for synchronization updating that happened in cart with state management
+    dispatch({type: "updateQuantity", payload: {productId: id, quantity: newQuantity}});
   };
 
   const handleRemoveItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    const newItems = cartItems.filter((item) => item.id !== id);
+    setCartItems(newItems);
+    localStorage.setItem("cartItems", JSON.stringify(newItems));
+    dispatch({type: "removeProduct", payload: id});
   };
 
   const handleClearCart = () => {
     setCartItems([]);
+    localStorage.clear("cartItems");
+    dispatch({type:"clearProducts"});
   };
 
   // --- Calculations ---
@@ -81,11 +81,12 @@ export default function Cart() {
                   </div>
 
                   {/* Quantity Controls */}
-                  <div className="cart_item_quantity">
+                  <div className="cart_item_quantity disabled_button">
                     <button 
                       type="button" 
                       onClick={() => handleQuantityChange(item.id, -1)}
                       aria-label="Decrease quantity"
+                      disabled = {item.quantity == 1}
                     >
                       -
                     </button>
@@ -94,6 +95,7 @@ export default function Cart() {
                       type="button" 
                       onClick={() => handleQuantityChange(item.id, 1)}
                       aria-label="Increase quantity"
+                      disabled={item.quantity >= item.stock}
                     >
                       +
                     </button>

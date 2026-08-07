@@ -111,7 +111,8 @@ export default function ProductDetails() {
         title: product.title,
         price: product.price,
         quantity: quantity,
-        thumbnail: product.thumbnail
+        thumbnail: product.thumbnail,
+        stock: product.stock
       }
 
       dispatch({type:"addProduct", payload: data});
