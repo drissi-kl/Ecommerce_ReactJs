@@ -14,58 +14,10 @@ import ProductCard from './ProductCard';
 import './productDetails.css';
 import { getProductApi } from '../services/products';
 import { useParams } from 'react-router-dom';
+import checkIfInCart from '../utilities/checkIfInCart';
+import searchInCart from '../utilities/searchInCart';
 
-// Mock data to demonstrate standalone functionality
-const MOCK_PRODUCT = {
-  id: '1',
-  title: 'LUXESound Pro Wireless Noise-Canceling Headphones',
-  price: 249.99,
-  originalPrice: 299.99,
-  category: 'Audio & Electronics',
-  rating: 4.8,
-  reviewsCount: 142,
-  stock: 12,
-  sku: 'LX-AUD-2026-X',
-  images: [
-    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=1000&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1546435770-a3e426bf472b?q=80&w=1000&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=1000&auto=format&fit=crop'
-  ],
-  description: 'Experience pure audio immersion with active noise cancellation, custom-tuned 40mm drivers, and up to 40 hours of uninterrupted playback. Engineered with soft memory foam ear cushions for all-day luxury comfort.',
-  features: [
-    'Advanced Active Noise Cancellation (ANC)',
-    '40-hour battery life with Fast Charging (10 min charge = 5 hours play)',
-    'Ultra-soft memory foam ear cushions & lightweight aluminum frame',
-    'Bluetooth 5.3 with multipoint dual-device pairing'
-  ],
-  specifications: {
-    'Driver Size': '40 mm Dynamic',
-    'Frequency Response': '20Hz - 20kHz',
-    'Battery Life': 'Up to 40 Hours (ANC On)',
-    'Connectivity': 'Bluetooth 5.3 / 3.5mm Aux',
-    'Weight': '250 g',
-    'Warranty': '2-Year International'
-  },
-  reviews: [
-    {
-      id: 1,
-      user: 'Sarah M.',
-      rating: 5,
-      date: 'July 14, 2026',
-      title: 'Best noise cancellation I have ever owned',
-      comment: 'The sound quality is crisp and clear, and the ANC completely blocks out office noise. Super comfortable during long work sessions.'
-    },
-    {
-      id: 2,
-      user: 'David K.',
-      rating: 4,
-      date: 'June 28, 2026',
-      title: 'Premium build quality',
-      comment: 'Materials feel premium in hand. Battery life easily lasts me through a full week of commuting and workouts.'
-    }
-  ]
-};
+
 
 const RELATED_PRODUCTS = [
   {
@@ -111,11 +63,12 @@ export default function ProductDetails() {
     const [product, setProduct]=useState({});
     const [productIsLoading, setProductIsLoading] = useState(false);
 
+    // for fetch product data by id
     useEffect(()=>{
       (async () => {
           try{
               const response = await getProductApi(id);
-              setProduct(response)
+              setProduct(response);
           }catch(error){
 
           }finally{
@@ -126,21 +79,50 @@ export default function ProductDetails() {
 
     }, [id])
 
-
-
-
-  const discount = product.originalPrice && product.originalPrice > product.price
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : null;
+    useEffect(()=>{
+      if(checkIfInCart(product.id)){
+        setAddedSuccess(true);
+        setQuantity((prev) => searchInCart(product.id)?.quantity || 1); 
+      }
+    }, [product])
+  
 
   const handleQuantityChange = (delta) => {
-    setQuantity((prev) => Math.max(1, Math.min(prev + delta, product.stock || 99)));
+    const newQuantity = Math.max(1, Math.min(quantity + delta, product.stock || 99));
+    setQuantity(newQuantity);    
+    if(checkIfInCart(product.id)){
+      console.log('quantity', newQuantity)
+      const cartItems = localStorage.getItem('cartItems');
+      const cartItemsObj = JSON.parse(cartItems);
+      const newCartItems = cartItemsObj.map((item)=>{return (item.id == product.id)? {...item, quantity: newQuantity}: item; })
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+    }
   };
 
+
+
   const handleAddToCart = () => {
-    console.log(`Added ${quantity} item(s) of ID ${product.id} to cart.`);
-    setAddedSuccess(true);
-    setTimeout(() => setAddedSuccess(false), 2500);
+    if(!checkIfInCart(product.id)){
+      const data = {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: quantity,
+        thumbnail: product.thumbnail
+      }
+  
+      const cartItems = localStorage.getItem('cartItems');
+  
+      if(cartItems){
+        const cartItemsObj = JSON.parse(cartItems);
+        cartItemsObj.push(data)
+        localStorage.setItem('cartItems', JSON.stringify(cartItemsObj))
+  
+      }else{
+        localStorage.setItem("cartItems", JSON.stringify([data]) )
+      }
+      setAddedSuccess(true);
+    }
   };
 
   return (
@@ -155,7 +137,7 @@ export default function ProductDetails() {
               alt={product.title} 
               className="main_image" 
             />
-            {discount && <span className="details_badge">-{discount}% OFF</span>}
+            {product.discountPercentage && <span className="details_badge">-{product.discountPercentage}% OFF</span>}
           </div>
 
           <div className="thumbnails_list">
