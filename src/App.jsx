@@ -9,11 +9,18 @@ import ContactUs from './views/contactUs';
 import AboutUs from './views/aboutUs';
 import ProductDetails from './views/ProductDetails';
 import Cart from './views/cart';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { reducer } from './store/reducer';
+
+
+
 
 function App() {
+  const store = createStore(reducer)
 
   return (<main>
-
+    <Provider store={store}>
     <Navbar />
     <Routes>
       <Route path='/' element={<Home />} />
@@ -29,7 +36,7 @@ function App() {
     </Routes>
 
     <Footer />
-
+    </Provider>
   </main>)
 }
 

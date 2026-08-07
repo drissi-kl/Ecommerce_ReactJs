@@ -16,6 +16,7 @@ import { getProductApi } from '../services/products';
 import { useParams } from 'react-router-dom';
 import checkIfInCart from '../utilities/checkIfInCart';
 import searchInCart from '../utilities/searchInCart';
+import { useDispatch } from 'react-redux';
 
 
 
@@ -59,6 +60,7 @@ export default function ProductDetails() {
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [addedSuccess, setAddedSuccess] = useState(false);
 
+    const dispatch = useDispatch();
     const {id} = useParams();
     const [product, setProduct]=useState({});
     const [productIsLoading, setProductIsLoading] = useState(false);
@@ -110,6 +112,8 @@ export default function ProductDetails() {
         quantity: quantity,
         thumbnail: product.thumbnail
       }
+
+      dispatch({type:"update", payload: data});
   
       const cartItems = localStorage.getItem('cartItems');
   

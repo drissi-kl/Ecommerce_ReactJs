@@ -3,10 +3,12 @@ import "./navbar.css";
 import { Search, ShoppingBag, ArrowRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { searchProductApi } from '../../services/products';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Navbar() {
     const [showSearchZone, setShowSearchZone] = useState(false);
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const [products, setProducts] = useState(null);
     const [search, setSearch] = useState("");
@@ -36,6 +38,21 @@ export default function Navbar() {
 
         return () => clearTimeout(timer);
     }, [search]);
+
+
+    const [cartQuantity, setCartQuantity] = useState(0);
+    useEffect(()=>{
+        const cartItems = localStorage.getItem('cartItems');
+        const cartItemsObj = JSON.parse(cartItems);
+        console.log(cartItemsObj)
+        dispatch({type: "initialAction", payload: cartItemsObj||[]})
+    },[])
+
+    const pop = useSelector(state => state.cartItems);
+    useEffect(()=>{
+        setCartQuantity((prev) => pop?.reduce((a,b)=>{return a + b.quantity}, 0) || 0);
+        // console.log("pop", pop);
+    },[pop])
 
     const handleCloseSearch = () => {
         setShowSearchZone(false);
@@ -129,7 +146,7 @@ export default function Navbar() {
                     <Link className="icon-btn cart-btn" aria-label="Cart" to={'/cart'}  >
                         <ShoppingBag size={20} />
                         <span className="icon-label">Cart</span>
-                        <span className="cart-badge">0</span>
+                        <span className="cart-badge"> {cartQuantity} </span>
                     </Link>
                 </div>
             </div>
