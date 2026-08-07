@@ -126,11 +126,11 @@ export default function Navbar() {
                             <span className="icon-label">Search</span>
                         </button>
                     )}
-                    <button className="icon-btn cart-btn" aria-label="Cart">
+                    <Link className="icon-btn cart-btn" aria-label="Cart" to={'/cart'}  >
                         <ShoppingBag size={20} />
                         <span className="icon-label">Cart</span>
                         <span className="cart-badge">0</span>
-                    </button>
+                    </Link>
                 </div>
             </div>
         </nav>

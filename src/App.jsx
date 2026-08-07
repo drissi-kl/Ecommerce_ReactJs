@@ -8,6 +8,7 @@ import Products from './views/products';
 import ContactUs from './views/contactUs';
 import AboutUs from './views/aboutUs';
 import ProductDetails from './views/ProductDetails';
+import Cart from './views/cart';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
       <Route path='/products/category/:category' element={<Products />} />
       <Route path='aboutUs' element={<AboutUs />} />
       <Route path='/contactUs' element={<ContactUs />} />
+      <Route path='/cart' element={<Cart />} />
 
     
 
