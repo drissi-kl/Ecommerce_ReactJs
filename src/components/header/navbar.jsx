@@ -48,11 +48,13 @@ export default function Navbar() {
         dispatch({type: "initialAction", payload: cartItemsObj||[]})
     },[])
 
+
     const pop = useSelector(state => state.cartItems);
     useEffect(()=>{
         setCartQuantity((prev) => pop?.reduce((a,b)=>{return a + b.quantity}, 0) || 0);
-        // console.log("pop", pop);
-    },[pop])
+        console.log("pop", pop);
+    },[pop]);
+    
 
     const handleCloseSearch = () => {
         setShowSearchZone(false);

@@ -94,6 +94,7 @@ export default function ProductDetails() {
     setQuantity(newQuantity);    
     if(checkIfInCart(product.id)){
       console.log('quantity', newQuantity)
+      dispatch({type: "updateQuantity", payload: {productId: product.id, quantity: newQuantity}});
       const cartItems = localStorage.getItem('cartItems');
       const cartItemsObj = JSON.parse(cartItems);
       const newCartItems = cartItemsObj.map((item)=>{return (item.id == product.id)? {...item, quantity: newQuantity}: item; })
@@ -113,7 +114,7 @@ export default function ProductDetails() {
         thumbnail: product.thumbnail
       }
 
-      dispatch({type:"update", payload: data});
+      dispatch({type:"addProduct", payload: data});
   
       const cartItems = localStorage.getItem('cartItems');
   

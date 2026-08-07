@@ -7,8 +7,12 @@ export const reducer = (state = {cartItems: []}, action) => {
         case 'initialAction': return {...state, cartItems: action.payload} ;
         break;
 
-        case 'update': return {...state, cartItems: [...state.cartItems, action.payload] };
+        case 'addProduct': return {...state, cartItems: [...state.cartItems, action.payload] };
         break;
+
+        case 'updateQuantity': return {...state, cartItems: state.cartItems.map((item)=>{ return item.id == action.payload.productId ? {...item, quantity: action.payload.quantity} : item })}
+
+    
 
         default: return state;
     }
