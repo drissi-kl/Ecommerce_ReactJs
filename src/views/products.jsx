@@ -3,13 +3,19 @@ import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getProductsApi } from '../services/products';
 import { getCategories } from '../services/category';
 import "./products.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { Check, ShoppingBag } from 'lucide-react';
+import checkIfInCart from '../utilities/checkIfInCart';
 
 export default function Products() {
   const goToHead = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
   const category = location.state?.category;
   console.log('drisssssi: ', category)
   const [page, setPage] = useState(1);
@@ -55,6 +61,41 @@ export default function Products() {
     })();
   }, []);
 
+
+  const addToCard = (event, id) => {
+    event.stopPropagation();
+    const productItem = products.products.find((product) => {return product.id == id});
+    if(productItem){
+      const data = {
+        id: productItem.id,
+        title: productItem.title,
+        price: productItem.price,
+        quantity: 1,
+        thumbnail: productItem.thumbnail,
+        stock: productItem.stock
+      }
+
+      const cartItems = localStorage.getItem('cartItems');
+      if(cartItems){
+        const cartItemsObj = JSON.parse(cartItems);
+        cartItemsObj.push(data)
+        localStorage.setItem('cartItems', JSON.stringify(cartItemsObj))
+      }else{
+        localStorage.setItem('cartItems', JSON.stringify([data]));
+      }
+
+      dispatch({type:"addProduct", payload: data});
+
+      console.log("add to card function executed", dd);
+    }
+  }
+
+  const changed = useSelector((state)=>{return state.cartItems});
+  useEffect(()=>{
+    // i create this logic for just reload component automaticlly when client add a product to cart
+
+  }, [changed])
+
   return (
     <main className="products">
       {/* Sidebar Filters */}
@@ -94,16 +135,31 @@ export default function Products() {
         {products?.products?.length > 0 ? (
           <div className="products_grid">
             {products.products.map((product) => (
-              <Link to={`${product.id}`} key={product.id} className="product">
+              <div onClick={()=>navigate(`${product.id}`)} key={product.id} className="product">
                 <div className="image">
                   <img src={product.thumbnail} alt={product.title} />
                   <div>
                     <p className="product_title">{product.title}</p>
                     <p className="product_price">{product.price}</p>
-                    <button type="button">Add To Cart</button>
+                    {/* <button type="button" onClick={(event) => {addToCard(event, product.id)}}>Add To Cart</button> */}
+
+                    <button 
+                      className={`${checkIfInCart(product.id) ? 'success' : ''}`}
+                      type="button" onClick={(event) => {addToCard(event, product.id)}}
+                    >
+                      {checkIfInCart(product.id) ? (
+                        <>
+                          <Check size={18} /> Added to Cart!
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingBag size={18} /> Add To Cart
+                        </>
+                      )}
+                    </button>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
         ) : (
