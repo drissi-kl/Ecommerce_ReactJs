@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import checkIfInCart from '../utilities/checkIfInCart';
 import searchInCart from '../utilities/searchInCart';
 import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast';
 
 
 
@@ -128,6 +129,7 @@ export default function ProductDetails() {
         localStorage.setItem("cartItems", JSON.stringify([data]) )
       }
       setAddedSuccess(true);
+      toast.success(`Add ${product.title} success`)
     }
   };
 

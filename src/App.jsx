@@ -12,6 +12,7 @@ import Cart from './views/cart';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { reducer } from './store/reducer';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -21,6 +22,36 @@ function App() {
 
   return (<main>
     <Provider store={store}>
+    <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            background: 'rgba(255, 255, 255, 0.95)',
+            color: '#111111',
+            borderRadius: '14px',
+            border: '1px solid #f0f0f2',
+            boxShadow: '0 16px 32px rgba(0, 0, 0, 0.08)',
+            padding: '12px 18px',
+            fontSize: '14px',
+            fontWeight: '600',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            backdropFilter: 'blur(10px)',
+          },
+          success: {
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#ffffff',
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#ffffff',
+            },
+          },
+        }}
+      />
     <Navbar />
     <Routes>
       <Route path='/' element={<Home />} />

@@ -6,6 +6,7 @@ import "./products.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { Check, ShoppingBag } from 'lucide-react';
 import checkIfInCart from '../utilities/checkIfInCart';
+import toast from 'react-hot-toast';
 
 export default function Products() {
   const goToHead = () => {
@@ -85,6 +86,8 @@ export default function Products() {
       }
 
       dispatch({type:"addProduct", payload: data});
+
+      toast.success(`Add ${productItem.title} success`);
 
       console.log("add to card function executed", dd);
     }

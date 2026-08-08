@@ -2,21 +2,20 @@ import React from 'react';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import "./contactUs.css";
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 export default function ContactUs() {
 
   const {
     register, handleSubmit, reset, formState,
-  
   } = useForm();
   const {errors, } = formState
 
   const contactUsForm = (data) => {
+    
     console.log('data', data);
     reset();
   }
-
-
 
 
   return (
