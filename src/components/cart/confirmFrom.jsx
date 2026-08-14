@@ -23,7 +23,6 @@ export default function ConfirmFrom({ data, confirmed, closeConfirm }) {
             }
         } catch (error) {
             setIsSubmitting(false);
-            console.log(error);
             toast.error("Failed to confirm order. Please try again.");
         }
     };

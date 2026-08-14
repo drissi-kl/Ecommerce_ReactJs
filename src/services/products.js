@@ -19,7 +19,6 @@ const getProductsApi = async(limit, skip, categorySelected)=>{
 const getProductApi = async(id)=>{
     try{
         const response = await baseApi.get(`/products/${id}`);
-        console.log(`product ${id}`, response.data);
         return response.data;
     }catch(error){
         if(axios.isAxiosError(error)){

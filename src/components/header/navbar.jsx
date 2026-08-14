@@ -44,7 +44,6 @@ export default function Navbar() {
     useEffect(()=>{
         const cartItems = localStorage.getItem('cartItems');
         const cartItemsObj = JSON.parse(cartItems);
-        console.log(cartItemsObj)
         dispatch({type: "initialAction", payload: cartItemsObj||[]})
     },[])
 
@@ -52,7 +51,6 @@ export default function Navbar() {
     const pop = useSelector(state => state.cartItems);
     useEffect(()=>{
         setCartQuantity((prev) => pop?.reduce((a,b)=>{return a + b.quantity}, 0) || 0);
-        console.log("pop", pop);
     },[pop]);
     
 

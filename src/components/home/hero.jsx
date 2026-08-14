@@ -35,9 +35,6 @@ export default function Hero() {
                         dynamicBullets: true,
                         clickable: true
                     }}
-
-                    // onSlideChange={() => console.log('slide change')}
-                    // onSwiper={(swiper) => console.log(swiper)}
                 >
                     <SwiperSlide className='hero_swiper_slide'>
                         <img src="/home/hero_slice1.jpg" alt="" className='hero-img' />

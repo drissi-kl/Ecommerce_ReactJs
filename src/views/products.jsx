@@ -18,7 +18,6 @@ export default function Products() {
   const dispatch = useDispatch();
 
   const category = location.state?.category;
-  console.log('drisssssi: ', category)
   const [page, setPage] = useState(1);
   const [totalProducts, setTotalProducts] = useState(null);
   const [products, setProducts] = useState(null);
@@ -89,7 +88,6 @@ export default function Products() {
 
       toast.success(`Add ${productItem.title} success`);
 
-      console.log("add to card function executed", dd);
     }
   }
 

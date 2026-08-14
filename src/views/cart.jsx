@@ -6,6 +6,7 @@ import searchInCart from '../utilities/searchInCart';
 import axios from 'axios';
 import ConfirmFrom from '../components/cart/confirmFrom';
 import toast from 'react-hot-toast';
+import { toTop } from '../utilities/toTop';
 
 
 export default function Cart() {
@@ -16,16 +17,14 @@ export default function Cart() {
   useEffect(()=>{
     // get products form local storage, ci mean cart items
     const ci = localStorage.getItem('cartItems');
-    setCartItems((prev) => ci ? JSON.parse(ci) : [])
-
+    setCartItems((prev) => ci ? JSON.parse(ci) : []);
+    toTop()
   }, []);
 
-  console.log("cart component", cartItems)
 
   // --- Handlers ---
   const handleQuantityChange = (id, delta) => {
     const product = searchInCart(id);
-    console.log("current product", product)
     const newQuantity = Math.max(1, Math.min(product.quantity + delta, product.stock || 99));
     const newItems = cartItems.map((item) => {return item.id == id? {...item, quantity: newQuantity} : item  })
 

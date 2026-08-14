@@ -1,4 +1,5 @@
 
+import axios from "axios";
 import baseApi from "./baseApi"
 
 const getCategories = async () => {
@@ -6,7 +7,10 @@ const getCategories = async () => {
         const response = await baseApi.get('/products/categories');
         return response.data;
     } catch (error) {
-        console.log('error', error);
+        if(axios.isAxiosError(error)){
+            throw error;
+        }
+        throw new Error("exits error in getCategoriesApi functions");
     }
 }
 

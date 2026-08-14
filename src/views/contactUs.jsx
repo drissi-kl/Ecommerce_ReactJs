@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoaderCircle, Mail, MapPin, Phone } from 'lucide-react';
 import "./contactUs.css";
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import { toTop } from '../utilities/toTop';
 
 export default function ContactUs() {
 
@@ -31,6 +32,10 @@ export default function ContactUs() {
       }
     }
   };
+
+  useEffect(()=>{
+    toTop();
+  },[])  
 
   return (
     <main className="contact_us">

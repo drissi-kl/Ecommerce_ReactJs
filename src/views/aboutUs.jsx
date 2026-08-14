@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Award, ShieldCheck, Sparkles, Truck, Users } from 'lucide-react';
 import './aboutUs.css';
+import { toTop } from '../utilities/toTop';
 
 export default function AboutUs() {
   const stats = [
@@ -32,6 +33,10 @@ export default function AboutUs() {
       description: 'Our customer support team is available 24/7 to assist with any questions or orders.',
     },
   ];
+
+  useEffect(()=>{
+    toTop();
+  },[])
 
   return (
     <main className="about_us">

@@ -10,7 +10,6 @@ import {
   Plus, 
   Check 
 } from 'lucide-react';
-import ProductCard from './ProductCard';
 import './productDetails.css';
 import { getProductApi } from '../services/products';
 import { useParams } from 'react-router-dom';
@@ -18,41 +17,9 @@ import checkIfInCart from '../utilities/checkIfInCart';
 import searchInCart from '../utilities/searchInCart';
 import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
+import RelatedProducts from '../components/productDetails/relatedProducts';
+import { toTop } from '../utilities/toTop';
 
-
-
-const RELATED_PRODUCTS = [
-  {
-    id: '2',
-    title: 'Minimalist Ergonomic Stand',
-    price: 49.99,
-    originalPrice: 65.00,
-    category: 'Accessories',
-    rating: 4.7,
-    reviewsCount: 58,
-    thumbnail: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=600&auto=format&fit=crop'
-  },
-  {
-    id: '3',
-    title: 'Compact Wireless Charging Pad',
-    price: 34.50,
-    originalPrice: 45.00,
-    category: 'Electronics',
-    rating: 4.6,
-    reviewsCount: 89,
-    thumbnail: 'https://images.unsplash.com/photo-1622445268121-ac11f17a2834?q=80&w=600&auto=format&fit=crop',
-    isNew: true
-  },
-  {
-    id: '4',
-    title: 'LUXE Carrying Case Pro',
-    price: 29.99,
-    category: 'Accessories',
-    rating: 4.9,
-    reviewsCount: 31,
-    thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?q=80&w=600&auto=format&fit=crop'
-  }
-];
 
 export default function ProductDetails() {
     const [selectedImage, setSelectedImage] = useState(0);
@@ -87,14 +54,18 @@ export default function ProductDetails() {
         setAddedSuccess(true);
         setQuantity((prev) => searchInCart(product.id)?.quantity || 1); 
       }
+      console.log("tit", product.category);
+      
     }, [product])
   
+    useEffect(()=>{
+      toTop();
+    },[])
 
   const handleQuantityChange = (delta) => {
     const newQuantity = Math.max(1, Math.min(quantity + delta, product.stock || 99));
     setQuantity(newQuantity);    
     if(checkIfInCart(product.id)){
-      console.log('quantity', newQuantity)
       dispatch({type: "updateQuantity", payload: {productId: product.id, quantity: newQuantity}});
       const cartItems = localStorage.getItem('cartItems');
       const cartItemsObj = JSON.parse(cartItems);
@@ -355,15 +326,9 @@ export default function ProductDetails() {
         </div>
       </section>
 
-      {/* Related Products Section */}
-      <section className="related_products_section">
-        <h2 className="section_title">You Might Also Like</h2>
-        <div className="related_grid">
-          {RELATED_PRODUCTS.map((relProduct) => (
-            <ProductCard key={relProduct.id} product={relProduct} />
-          ))}
-        </div>
-      </section>
+      {/* Related Products Section */}{
+        product?.category && <RelatedProducts category={product?.category} />
+      }
     </div>
   );
 }
