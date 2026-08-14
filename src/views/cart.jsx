@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import './cart.css';
 import { useDispatch } from 'react-redux';
 import searchInCart from '../utilities/searchInCart';
+import axios from 'axios';
+import ConfirmFrom from '../components/cart/confirmFrom';
 
 
 export default function Cart() {
@@ -26,6 +28,7 @@ export default function Cart() {
     const newQuantity = Math.max(1, Math.min(product.quantity + delta, product.stock || 99));
     const newItems = cartItems.map((item) => {return item.id == id? {...item, quantity: newQuantity} : item  })
 
+    // for synchronization updating that happened in cart with locat state
     setCartItems(newItems);
     // for synchronization updating that happened in cart with localstorage
     localStorage.setItem("cartItems" ,JSON.stringify(newItems));
@@ -50,6 +53,13 @@ export default function Cart() {
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const shippingFee = subtotal > 50 || subtotal === 0 ? 0 : 5.99;
   const grandTotal = subtotal + shippingFee;
+
+
+  const [confirmShipping, setConfirmShipping] = useState(false);
+  const handleConfirm = () => {
+    setCartItems(true)
+  }
+
 
   return (
     <main className="cart_container">
@@ -151,8 +161,8 @@ export default function Cart() {
               <span>${grandTotal.toFixed(2)}</span>
             </div>
 
-            <button type="button" className="checkout_btn">
-              Proceed to Checkout
+            <button type="button" className="checkout_btn" onClick={()=>{handleConfirm()}}>
+              confirm
             </button>
           </aside>
         </div>
@@ -167,6 +177,13 @@ export default function Cart() {
           </Link>
         </div>
       )}
+
+
+      {
+        confirmShipping && <ConfirmFrom  />
+      }
+
+
     </main>
   );
 }
