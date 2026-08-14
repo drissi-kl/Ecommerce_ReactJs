@@ -10,6 +10,111 @@
   color: #111111;
 }
 
+
+/* ==========================================================================
+   LOADING POPUP MODAL STYLES
+   ========================================================================== */
+
+/* Fullscreen Backdrop */
+.popup_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4); /* Dark muted overlay */
+  backdrop-filter: blur(8px); /* Smooth Glassmorphism Blur */
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInOverlay 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modal Box */
+.pending_message_modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  width: 90%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  animation: scaleUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Custom Animated Spinner */
+.spinner_wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: #fff0f3; /* Matching brand color background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner_icon {
+  width: 28px;
+  height: 28px;
+  color: #ff3f6c; /* Your Brand Accent Color */
+  animation: spin 1s linear infinite;
+}
+
+/* Modal Typography */
+.modal_text h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0 0 6px 0;
+}
+
+.modal_text p {
+  font-size: 13.5px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Keyframe Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUpModal {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+
 /* ==========================================================================
    1. INFORMATION SIDEBAR
    ========================================================================== */
