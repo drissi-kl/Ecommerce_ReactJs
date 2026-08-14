@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './cart.css';
 import { useDispatch } from 'react-redux';
 import searchInCart from '../utilities/searchInCart';
 import axios from 'axios';
 import ConfirmFrom from '../components/cart/confirmFrom';
+import toast from 'react-hot-toast';
 
 
 export default function Cart() {
@@ -55,9 +56,16 @@ export default function Cart() {
   const grandTotal = subtotal + shippingFee;
 
 
+
   const [confirmShipping, setConfirmShipping] = useState(false);
+  const productsName = useMemo(()=>{
+    const np = cartItems?.map((item)=>{return item.title});
+    return np.join(", ");
+  }, [cartItems]);
+
   const handleConfirm = () => {
-    setCartItems(true)
+    handleClearCart();
+    setConfirmShipping(false);
   }
 
 
@@ -161,7 +169,7 @@ export default function Cart() {
               <span>${grandTotal.toFixed(2)}</span>
             </div>
 
-            <button type="button" className="checkout_btn" onClick={()=>{handleConfirm()}}>
+            <button type="button" className="checkout_btn" onClick={()=>{setConfirmShipping(true);}}>
               confirm
             </button>
           </aside>
@@ -180,7 +188,7 @@ export default function Cart() {
 
 
       {
-        confirmShipping && <ConfirmFrom  />
+        confirmShipping && <ConfirmFrom data={productsName} confirmed={()=>handleConfirm()} closeConfirm={()=>setConfirmShipping(false)} />
       }
 
 

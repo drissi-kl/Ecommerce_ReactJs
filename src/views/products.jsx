@@ -66,7 +66,7 @@ export default function Products() {
   const addToCard = (event, id) => {
     event.stopPropagation();
     const productItem = products.products.find((product) => {return product.id == id});
-    if(productItem){
+    if(!checkIfInCart(productItem.id)){
       const data = {
         id: productItem.id,
         title: productItem.title,
@@ -149,6 +149,7 @@ export default function Products() {
                     <button 
                       className={`${checkIfInCart(product.id) ? 'success' : ''}`}
                       type="button" onClick={(event) => {addToCard(event, product.id)}}
+                      disabled = {checkIfInCart(product.id)}
                     >
                       {checkIfInCart(product.id) ? (
                         <>

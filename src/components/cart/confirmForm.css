@@ -22,12 +22,134 @@
     max-width: 380px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 16px;
     border: 1px solid rgba(255, 255, 255, 0.8);
     box-shadow: 
         0 25px 50px -12px rgba(0, 0, 0, 0.15),
         0 0 0 1px rgba(0, 0, 0, 0.02);
     animation: scaleUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+/* Styling the close button nicely */
+.close_confirm {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    align-self: flex-end;
+    color: #64748b;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    padding: 4px;
+}
+
+.close_confirm:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+/* Disabled state styling for inputs during loading */
+.confirm_input_group input:disabled {
+    background-color: #f1f5f9;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Loading button content alignment */
+.confirm_btn:disabled {
+    background-color: #ff8ba7;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none;
+}
+
+.btn_loading_content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn_spinner {
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.confirm_form_row{
+    display: flex;
+    flex-direction: column;
+}
+
+.confirm_input_group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.confirm_input_group label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.confirm_input_group input{
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111111;
+  background-color: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;    
+}
+.confirm_input_group input:focus{
+    border-color: #ff3f6c;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 63, 108, 0.1);
+}
+
+.confirm_btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #ff3f6c;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(255, 63, 108, 0.25);
+}
+
+.confirm_btn:hover {
+  background-color: #e0355c;
+  transform: translateY(-1px);
+}
+
+.fullnameErrorMessage,
+.emailErrorMessage{
+  font-size: 12px;
+  font-weight: 500;
+  color: #e63946;
+  margin: 2px 0 0 2px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  animation: fadeIn 0.2s ease-in-out;
 }
