@@ -15,7 +15,7 @@ import { getProductApi } from '../services/products';
 import { useParams } from 'react-router-dom';
 import checkIfInCart from '../utilities/checkIfInCart';
 import searchInCart from '../utilities/searchInCart';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import RelatedProducts from '../components/productDetails/relatedProducts';
 import { toTop } from '../utilities/toTop';
@@ -45,22 +45,25 @@ export default function ProductDetails() {
               setProductIsLoading(false);
           }
       })()
-
-
     }, [id])
 
     useEffect(()=>{
       if(checkIfInCart(product.id)){
         setAddedSuccess(true);
         setQuantity((prev) => searchInCart(product.id)?.quantity || 1); 
+      }else{
+        setAddedSuccess(false);
+        setQuantity(1)
       }
-      console.log("tit", product.category);
-      
+      toTop();      
     }, [product])
-  
+
+    const storedata = useSelector((state)=>{return state.cartItems});
     useEffect(()=>{
-      toTop();
-    },[])
+      console.log("hello titoz");
+    },[storedata])
+
+
 
   const handleQuantityChange = (delta) => {
     const newQuantity = Math.max(1, Math.min(quantity + delta, product.stock || 99));
@@ -187,10 +190,10 @@ export default function ProductDetails() {
             </div>
 
             <button 
-              className={`add_to_cart_btn ${addedSuccess ? 'success' : ''}`}
+              className={`add_to_cart_btn ${(addedSuccess || checkIfInCart(product.id)) ? 'success' : ''}`}
               onClick={handleAddToCart}
             >
-              {addedSuccess ? (
+              {(addedSuccess || checkIfInCart(product.id)) ? (
                 <>
                   <Check size={18} /> Added to Cart!
                 </>
