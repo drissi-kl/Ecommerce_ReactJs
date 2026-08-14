@@ -1,16 +1,63 @@
-# React + Vite
+# 🛒 Modern E-Commerce Application (Frontend Focused)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A sleek, responsive, and performance-focused **Frontend E-Commerce web application** built with **React** and **Custom CSS**. 
 
-Currently, two official plugins are available:
+This project focuses on rich Client-Side state management, API integration, data manipulation, dynamic UI components, and modern CSS micro-interactions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📌 Architecture & Data Source
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+> **Note on Backend & Data**: This project is purely **Frontend-focused**. It integrates with external APIs to simulate real-world e-commerce workflows without needing a custom server:
+> - **[DummyJSON API](https://dummyjson.com/)**: Used as the primary mock REST API to fetch products, handle categories, limits, and pagination.
+> - **Data Manipulation**: Fetched JSON data is transformed, filtered, and manipulated on the client side (handling categories, price calculations, and carousel displays).
+> - **Services Layer**: Uses a clean, modular API services structure (built with **Axios**) to keep HTTP requests decoupled from UI components.
+> - **Form Services**: Integrated with **Formspree** to process real shipping confirmation emails directly from the frontend.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## ✨ Key Features
+
+- 📦 **Dynamic Product Showcase**: Interactive product cards featuring category badges, dynamic image sizing, hover micro-interactions, and automated price formatting.
+- 🔄 **Related Products Carousel**: Fully responsive product slider built with **Swiper.js**, featuring touch-swipe support and customized pagination.
+- 📋 **Glassmorphism Shipping Modal**: Accessible confirmation modal with blur backdrop effects and dynamic animation transitions.
+- ⚡ **Form Validation & State Management**: Real-time form handling and field validation using **React Hook Form**.
+- ⏳ **Async & Loading States**: Integrated spinner animations (`lucide-react`) and button disable states during form submissions to prevent duplicate submissions.
+- 🔔 **Toast Feedback**: Real-time feedback messages powered by **React Hot Toast**.
+- 📱 **Fully Responsive Layout**: Adaptive display optimized across Mobile, Tablet, and Desktop breakpoints.
+
+---
+
+## 🛠️ Tech Stack
+
+### **Frontend Core**
+- **React.js** - UI Component Library
+- **JavaScript (ES6+)** - Core logic, array methods & async/await operations
+- **CSS3** - Custom styling, Glassmorphism design, CSS animations, & Swiper pagination overrides
+
+### **Libraries & Utilities**
+- **Axios** - Service layer HTTP client for handling REST API requests
+- **React Hook Form** - Performance-focused form management
+- **Swiper.js** - Touch slider and carousel implementation
+- **Lucide React** - Modern UI icons
+- **React Hot Toast** - User notification system
+
+### **External APIs & Services**
+- **DummyJSON API** - Mock data provider for e-commerce products
+- **Formspree API** - Automated contact/shipping form backend processing
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed on your machine:
+- **Node.js** (v16.0 or higher)
+- **npm** or **yarn**
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
